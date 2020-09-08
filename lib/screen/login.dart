@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nif_mobile/screen/sign_up.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -9,6 +10,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: Stack(
         children: [
           Container(
@@ -40,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: TextFormField(
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.account_circle),
-                    hintText: 'Username/e-mail',
+                    hintText: 'username/e-mail',
                     contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(32.0)),
@@ -70,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           });
                         },
                         child: Icon(Icons.remove_red_eye)),
-                    hintText: 'Password',
+                    hintText: 'password',
                     contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(32.0)),
@@ -84,6 +86,36 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   //obscureText: hidePass,
                 ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  RaisedButton(
+                      child: Text('SIGN IN'),
+                      color: Theme.of(context).primaryColorLight,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      onPressed: () {}),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  RaisedButton(
+                      child: Text('SIGN UP?'),
+                      color: Theme.of(context).primaryColorLight,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (ctx) => SignUpScreen()));
+                      }),
+                ],
               ),
             ],
           ),
