@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nif_mobile/screen/home.dart';
 
 class SignUpScreen extends StatefulWidget {
+  static const routeName = '/signUp';
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
 }
@@ -54,7 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Container(
                     width: MediaQuery.of(context).size.width / 1.5,
                     child: TextFormField(
-                      textAlign: TextAlign.center,
+                      //textAlign: TextAlign.center,
                       decoration: InputDecoration(
                         hintText: 'fullname',
                         contentPadding:
@@ -77,7 +79,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Container(
                     width: MediaQuery.of(context).size.width / 1.5,
                     child: TextFormField(
-                      textAlign: TextAlign.center,
+                      //textAlign: TextAlign.center,
                       decoration: InputDecoration(
                         suffixIcon: Icon(
                           Icons.check_circle,
@@ -104,7 +106,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Container(
                     width: MediaQuery.of(context).size.width / 1.5,
                     child: TextFormField(
-                      textAlign: TextAlign.center,
+                      //textAlign: TextAlign.center,
                       decoration: InputDecoration(
                         hintText: 'e-mail',
                         contentPadding:
@@ -127,7 +129,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Container(
                     width: MediaQuery.of(context).size.width / 1.5,
                     child: TextFormField(
-                      textAlign: TextAlign.center,
+                      //textAlign: TextAlign.center,
                       decoration: InputDecoration(
                         suffixIcon: Icon(
                           Icons.check_circle,
@@ -154,7 +156,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Container(
                     width: MediaQuery.of(context).size.width / 1.5,
                     child: TextFormField(
-                      textAlign: TextAlign.center,
+                      //textAlign: TextAlign.center,
                       textAlignVertical: TextAlignVertical.center,
                       decoration: InputDecoration(
                         suffixIcon: Icon(
@@ -185,7 +187,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(24),
                       ),
-                      onPressed: () {}),
+                      onPressed: () {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            HomeScreen.routeName,
+                            (Route<dynamic> route) => false);
+                      }),
                 ),
               ],
             ),

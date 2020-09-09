@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nif_mobile/screen/home.dart';
+import 'package:nif_mobile/screen/login.dart';
+import 'package:nif_mobile/screen/sign_up.dart';
 import 'package:nif_mobile/screen/splash.dart';
 
 void main() {
@@ -17,6 +20,12 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: SplashScreen(),
+      routes: {
+        LoginScreen.routeName: (ctx) => LoginScreen(),
+        SplashScreen.routeName: (ctx) => SplashScreen(),
+        SignUpScreen.routeName: (ctx) => SignUpScreen(),
+        HomeScreen.routeName: (ctx) => HomeScreen(),
+      },
     );
   }
 }

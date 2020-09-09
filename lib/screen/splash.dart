@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nif_mobile/screen/login.dart';
 
 class SplashScreen extends StatefulWidget {
+  static const routeName = '/splash';
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
