@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nif_mobile/screen/home.dart';
 import 'package:nif_mobile/screen/login.dart';
+import 'package:nif_mobile/screen/mutabaah.dart';
+import 'package:nif_mobile/screen/profil.dart';
 import 'package:nif_mobile/screen/sign_up.dart';
 import 'package:nif_mobile/screen/splash.dart';
 
@@ -25,6 +27,8 @@ class MyApp extends StatelessWidget {
         SplashScreen.routeName: (ctx) => SplashScreen(),
         SignUpScreen.routeName: (ctx) => SignUpScreen(),
         HomeScreen.routeName: (ctx) => HomeScreen(),
+        MutabaahScreen.routeName: (ctx) => MutabaahScreen(),
+        ProfilScreen.routeName: (ctx) => ProfilScreen(),
       },
     );
   }

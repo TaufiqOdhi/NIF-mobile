@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:nif_mobile/screen/mutabaah.dart';
-import 'package:nif_mobile/screen/profil.dart';
 
-class HomeScreen extends StatefulWidget {
-  static const routeName = '/home';
+class MutabaahScreen extends StatefulWidget {
+  static const routeName = "/mutaba'ah";
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _MutabaahScreenState createState() => _MutabaahScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _MutabaahScreenState extends State<MutabaahScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,110 +17,6 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 25,
           ),
           _buildRowAtas(context),
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Theme.of(context).primaryColorLight,
-                      child: Icon(
-                        Icons.question_answer,
-                        size: 50,
-                      ),
-                    ),
-                    Text('Question\n& Answer'),
-                  ],
-                ),
-                Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Theme.of(context).primaryColorLight,
-                      child: Icon(
-                        Icons.archive,
-                        size: 50,
-                      ),
-                    ),
-                    Text("Al Qur'an"),
-                  ],
-                ),
-                Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Theme.of(context).primaryColorLight,
-                      child: Icon(
-                        Icons.account_balance,
-                        size: 50,
-                      ),
-                    ),
-                    Text('Pray Times'),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (ctx) => MutabaahScreen()));
-                      },
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundColor: Theme.of(context).primaryColorLight,
-                        child: Icon(
-                          Icons.list,
-                          size: 50,
-                        ),
-                      ),
-                    ),
-                    Text("Mutaba'ah"),
-                  ],
-                ),
-                Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Theme.of(context).primaryColorLight,
-                      child: Icon(
-                        Icons.cloud,
-                        size: 50,
-                      ),
-                    ),
-                    Text("Tips & Tricks"),
-                  ],
-                ),
-                Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Theme.of(context).primaryColorLight,
-                      child: Icon(
-                        Icons.date_range,
-                        size: 50,
-                      ),
-                    ),
-                    Text('NIF Event'),
-                  ],
-                ),
-              ],
-            ),
-          ),
           _buildPaddingLastRead(context),
           _buildPaddingTanggal(),
           _buildPaddingBawah(context),
@@ -301,12 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: IconButton(
-              icon: Icon(Icons.dehaze),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (ctx) => ProfilScreen()));
-              }),
+          child: IconButton(icon: Icon(Icons.dehaze), onPressed: () {}),
         ),
         Expanded(
           child: TextFormField(

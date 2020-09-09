@@ -40,7 +40,11 @@ class _SplashScreenState extends State<SplashScreen> {
               image: AssetImage('assets/login/1.1 Background.png'),
               fit: BoxFit.cover,
             )),
-            child: Image.asset('assets/2.1-Logo-NIF.png'),
+            child: Center(
+                child: Container(
+                    height: MediaQuery.of(context).size.width / 2,
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: Image.asset('assets/Ngaji Is Fun Logo White.png'))),
           ),
           Align(
             alignment: Alignment.bottomCenter,
