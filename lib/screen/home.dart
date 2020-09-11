@@ -12,6 +12,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -191,7 +192,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: Icon(
                   Icons.list,
                 ),
-                onPressed: () {}),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (ctx) => MutabaahScreen()));
+                }),
           ),
           Container(
             decoration: BoxDecoration(
