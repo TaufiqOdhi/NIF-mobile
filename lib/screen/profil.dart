@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nif_mobile/screen/home.dart';
 
 class ProfilScreen extends StatefulWidget {
   static const routeName = '/profil';
@@ -15,166 +14,247 @@ class _ProfilScreenState extends State<ProfilScreen> {
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height / 6,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'YOUR ACCOUNT',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Icon(
-              Icons.account_circle,
-              size: 100,
+              height: MediaQuery.of(context).size.height / 20,
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.all(8.0),
               child: Container(
-                width: MediaQuery.of(context).size.width / 1.5,
-                child: TextFormField(
-                  //textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                    hintText: 'fullname',
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0)),
-                  ),
-                  keyboardType: TextInputType.text,
-                  validator: (value) {
-                    if (value.toString().isEmpty) {
-                      return "Tidak boleh kosong";
-                    }
-                    return null;
-                  },
-                ),
+                color: Theme.of(context).primaryColorLight,
+                child: _buildColumnAtas(),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Container(
-                width: MediaQuery.of(context).size.width / 1.5,
-                child: TextFormField(
-                  //textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                    suffixIcon: Icon(
-                      Icons.check_circle,
-                      color: Colors.green,
-                    ),
-                    hintText: 'username',
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0)),
-                  ),
-                  keyboardType: TextInputType.text,
-                  validator: (value) {
-                    if (value.toString().isEmpty) {
-                      return "Tidak boleh kosong";
-                    }
-                    return null;
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Container(
-                width: MediaQuery.of(context).size.width / 1.5,
-                child: TextFormField(
-                  //textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                    hintText: 'e-mail',
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0)),
-                  ),
-                  keyboardType: TextInputType.text,
-                  validator: (value) {
-                    if (value.toString().isEmpty) {
-                      return "Tidak boleh kosong";
-                    }
-                    return null;
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Container(
-                width: MediaQuery.of(context).size.width / 1.5,
-                child: TextFormField(
-                  //textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                    suffixIcon: Icon(
-                      Icons.check_circle,
-                      color: Colors.green,
-                    ),
-                    hintText: 'password',
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0)),
-                  ),
-                  keyboardType: TextInputType.text,
-                  validator: (value) {
-                    if (value.toString().isEmpty) {
-                      return "Tidak boleh kosong";
-                    }
-                    return null;
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Container(
-                width: MediaQuery.of(context).size.width / 1.5,
-                child: TextFormField(
-                  //textAlign: TextAlign.center,
-                  textAlignVertical: TextAlignVertical.center,
-                  decoration: InputDecoration(
-                    suffixIcon: Icon(
-                      Icons.check_circle,
-                      color: Colors.green,
-                    ),
-                    hintText: 'confirm password',
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0)),
-                  ),
-                  keyboardType: TextInputType.text,
-                  validator: (value) {
-                    if (value.toString().isEmpty) {
-                      return "Tidak boleh kosong";
-                    }
-                    return null;
-                  },
-                ),
-              ),
-            ),
+            _buildColumnForm(context),
             Container(
               width: 70,
               child: RaisedButton(
-                  child: Icon(Icons.arrow_forward),
+                  child: Icon(Icons.save),
                   color: Theme.of(context).primaryColorLight,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24),
                   ),
-                  onPressed: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        HomeScreen.routeName, (Route<dynamic> route) => false);
-                  }),
+                  onPressed: () {}),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildColumnForm(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Complete Your Data',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0, left: 8.0),
+            child: Text(
+              'Place & Date of Born',
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10.0),
+            child: Container(
+              child: TextFormField(
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(10.0, 1.0, 10.0, 1.0),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(32.0)),
+                ),
+                keyboardType: TextInputType.text,
+                validator: (value) {
+                  if (value.toString().isEmpty) {
+                    return "Tidak boleh kosong";
+                  }
+                  return null;
+                },
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Text(
+              'Country',
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10.0),
+            child: Container(
+              child: TextFormField(
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(10.0, 1.0, 10.0, 1.0),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(32.0)),
+                ),
+                keyboardType: TextInputType.text,
+                validator: (value) {
+                  if (value.toString().isEmpty) {
+                    return "Tidak boleh kosong";
+                  }
+                  return null;
+                },
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Text(
+              'Regional',
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10.0),
+            child: Container(
+              child: TextFormField(
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(10.0, 1.0, 10.0, 1.0),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(32.0)),
+                ),
+                keyboardType: TextInputType.text,
+                validator: (value) {
+                  if (value.toString().isEmpty) {
+                    return "Tidak boleh kosong";
+                  }
+                  return null;
+                },
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Text(
+              'Address',
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10.0),
+            child: Container(
+              child: TextFormField(
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(10.0, 1.0, 10.0, 1.0),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(32.0)),
+                ),
+                keyboardType: TextInputType.text,
+                validator: (value) {
+                  if (value.toString().isEmpty) {
+                    return "Tidak boleh kosong";
+                  }
+                  return null;
+                },
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Text(
+              'Profession',
+            ),
+          ),
+          Container(
+            child: TextFormField(
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.fromLTRB(10.0, 1.0, 10.0, 1.0),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(32.0)),
+              ),
+              keyboardType: TextInputType.text,
+              validator: (value) {
+                if (value.toString().isEmpty) {
+                  return "Tidak boleh kosong";
+                }
+                return null;
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildColumnAtas() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 16.0, left: 16.0),
+          child: Row(
+            children: [
+              Text(
+                'YOUR ',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              Text(
+                'ACCOUNT',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0, bottom: 16.0),
+          child: Row(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Colors.white),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  Icons.account_circle,
+                  size: 100,
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                  child: Container(
+                    padding: EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(color: Colors.white, width: 2),
+                        left: BorderSide(color: Colors.white, width: 2),
+                        top: BorderSide(color: Colors.white, width: 2),
+                      ),
+                      // borderRadius: BorderRadius.only(
+                      //   bottomLeft: Radius.circular(10),
+                      //   topLeft: Radius.circular(10),
+                      // ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Muhammad Arifin Taslim'),
+                        Text('@marifintaslim'),
+                        Text('Be Different'),
+                        Text('Founder'),
+                        Text('NIF Solo'),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

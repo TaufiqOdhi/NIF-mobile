@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nif_mobile/screen/home.dart';
 
 class MutabaahScreen extends StatefulWidget {
   static const routeName = "/mutaba'ah";
@@ -41,7 +42,10 @@ class _MutabaahScreenState extends State<MutabaahScreen> {
                 icon: Icon(
                   Icons.home,
                 ),
-                onPressed: () {}),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (ctx) => HomeScreen()));
+                }),
           ),
           Container(
             decoration: BoxDecoration(
