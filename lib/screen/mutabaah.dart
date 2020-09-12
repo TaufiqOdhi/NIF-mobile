@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:nif_mobile/screen/home.dart';
 import 'package:nif_mobile/screen/profil.dart';
@@ -60,82 +62,107 @@ class _MutabaahScreenState extends State<MutabaahScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 25,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 25,
+          ),
+          _buildRowAtas(context),
+          SizedBox(
+            height: 20,
+          ),
+          Text(
+            "Mutaba'ah",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 25,
             ),
-            _buildRowAtas(context),
-            SizedBox(
-              height: 20,
+          ),
+          Text(
+            "Yuk pantau ibadah!",
+            style: TextStyle(
+              fontSize: 18,
             ),
-            Text(
-              "Mutaba'ah",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 20,
+              left: 16.0,
+              right: 8.0,
             ),
-            Text(
-              "Yuk pantau ibadah!",
-              style: TextStyle(
-                fontSize: 18,
-              ),
+            child: Row(
+              children: [
+                Expanded(child: Text('Mulai:')),
+                Expanded(child: Text('Akhir:')),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 20,
-                left: 16.0,
-                right: 8.0,
-              ),
-              child: Row(
-                children: [
-                  Expanded(child: Text('Mulai:')),
-                  Expanded(child: Text('Akhir:')),
-                ],
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              right: 8.0,
+              left: 16.0,
+              top: 8.0,
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                right: 8.0,
-                left: 16.0,
-                top: 8.0,
-              ),
-              child: Table(
-                border: TableBorder.all(width: 0.25),
-                columnWidths: {0: FractionColumnWidth(.3)},
-                children: [
-                  TableRow(
-                    children: [
-                      Text('Ibadah'),
-                      Text('1'),
-                      Text('2'),
-                      Text('3'),
-                      Text('4'),
-                      Text('5'),
-                      Text('6'),
-                      Text('7'),
-                    ],
-                  ),
-                  _buildTableRowIbadah(indexIbadah: 0),
-                  _buildTableRowIbadah(indexIbadah: 1),
-                  _buildTableRowIbadah(indexIbadah: 2),
-                  _buildTableRowIbadah(indexIbadah: 3),
-                  _buildTableRowIbadah(indexIbadah: 4),
-                  _buildTableRowIbadah(indexIbadah: 5),
-                  _buildTableRowIbadah(indexIbadah: 6),
-                  _buildTableRowIbadah(indexIbadah: 7),
-                  _buildTableRowIbadah(indexIbadah: 8),
-                  _buildTableRowIbadah(indexIbadah: 9),
-                  _buildTableRowIbadah(indexIbadah: 10),
-                ],
-              ),
+            child: Table(
+              border: TableBorder.all(width: 0.5),
+              columnWidths: {0: FractionColumnWidth(.3)},
+              children: [
+                TableRow(
+                  children: [
+                    Text(
+                      'Ibadah',
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      '1',
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      '2',
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      '3',
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      '4',
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      '5',
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      '6',
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      '7',
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+                _buildTableRowIbadah(indexIbadah: 0),
+                _buildTableRowIbadah(indexIbadah: 1),
+                _buildTableRowIbadah(indexIbadah: 2),
+                _buildTableRowIbadah(indexIbadah: 3),
+                _buildTableRowIbadah(indexIbadah: 4),
+                _buildTableRowIbadah(indexIbadah: 5),
+                _buildTableRowIbadah(indexIbadah: 6),
+                _buildTableRowIbadah(indexIbadah: 7),
+                _buildTableRowIbadah(indexIbadah: 8),
+                _buildTableRowIbadah(indexIbadah: 9),
+                _buildTableRowIbadah(indexIbadah: 10),
+              ],
             ),
-            _buildPaddingBawah(context),
-          ],
-        ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Expanded(child: _buildPaddingBawah(context)),
+        ],
       ),
     );
   }
@@ -143,7 +170,10 @@ class _MutabaahScreenState extends State<MutabaahScreen> {
   TableRow _buildTableRowIbadah({int indexIbadah}) {
     return TableRow(
       children: [
-        Text(_listIbadah[indexIbadah]),
+        Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Text(_listIbadah[indexIbadah]),
+        ),
         _buildGestureDetectorCheckList(
             index: 0, jenisIbadah: _listIbadah[indexIbadah]),
         _buildGestureDetectorCheckList(
@@ -199,6 +229,7 @@ class _MutabaahScreenState extends State<MutabaahScreen> {
             child: IconButton(
                 icon: Icon(
                   Icons.home,
+                  color: Colors.white,
                 ),
                 onPressed: () {
                   Navigator.push(context,
@@ -213,6 +244,7 @@ class _MutabaahScreenState extends State<MutabaahScreen> {
             child: IconButton(
                 icon: Icon(
                   Icons.question_answer,
+                  color: Colors.white,
                 ),
                 onPressed: () {}),
           ),
@@ -224,6 +256,7 @@ class _MutabaahScreenState extends State<MutabaahScreen> {
             child: IconButton(
                 icon: Icon(
                   Icons.archive,
+                  color: Colors.white,
                 ),
                 onPressed: () {}),
           ),
@@ -235,6 +268,7 @@ class _MutabaahScreenState extends State<MutabaahScreen> {
             child: IconButton(
                 icon: Icon(
                   Icons.account_balance,
+                  color: Colors.white,
                 ),
                 onPressed: () {}),
           ),
@@ -246,6 +280,7 @@ class _MutabaahScreenState extends State<MutabaahScreen> {
             child: IconButton(
                 icon: Icon(
                   Icons.list,
+                  color: Colors.white,
                 ),
                 onPressed: () {}),
           ),
@@ -257,6 +292,7 @@ class _MutabaahScreenState extends State<MutabaahScreen> {
             child: IconButton(
                 icon: Icon(
                   Icons.cloud,
+                  color: Colors.white,
                 ),
                 onPressed: () {}),
           ),
@@ -268,6 +304,7 @@ class _MutabaahScreenState extends State<MutabaahScreen> {
             child: IconButton(
                 icon: Icon(
                   Icons.date_range,
+                  color: Colors.white,
                 ),
                 onPressed: () {}),
           ),

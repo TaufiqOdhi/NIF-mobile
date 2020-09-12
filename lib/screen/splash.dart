@@ -33,13 +33,9 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Stack(
         children: [
           Container(
+            color: Theme.of(context).primaryColorDark,
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-              image: AssetImage('assets/login/1.1 Background.png'),
-              fit: BoxFit.cover,
-            )),
             child: Center(
                 child: Container(
                     height: MediaQuery.of(context).size.width / 2,

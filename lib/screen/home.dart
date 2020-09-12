@@ -147,6 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: IconButton(
                 icon: Icon(
                   Icons.home,
+                  color: Colors.white,
                 ),
                 onPressed: () {}),
           ),
@@ -158,6 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: IconButton(
                 icon: Icon(
                   Icons.question_answer,
+                  color: Colors.white,
                 ),
                 onPressed: () {}),
           ),
@@ -169,6 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: IconButton(
                 icon: Icon(
                   Icons.archive,
+                  color: Colors.white,
                 ),
                 onPressed: () {}),
           ),
@@ -180,6 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: IconButton(
                 icon: Icon(
                   Icons.account_balance,
+                  color: Colors.white,
                 ),
                 onPressed: () {}),
           ),
@@ -191,6 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: IconButton(
                 icon: Icon(
                   Icons.list,
+                  color: Colors.white,
                 ),
                 onPressed: () {
                   Navigator.push(context,
@@ -205,6 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: IconButton(
                 icon: Icon(
                   Icons.cloud,
+                  color: Colors.white,
                 ),
                 onPressed: () {}),
           ),
@@ -216,6 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: IconButton(
                 icon: Icon(
                   Icons.date_range,
+                  color: Colors.white,
                 ),
                 onPressed: () {}),
           ),

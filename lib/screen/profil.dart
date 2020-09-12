@@ -28,7 +28,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
               width: 70,
               child: RaisedButton(
                   child: Icon(Icons.save),
-                  color: Theme.of(context).primaryColorLight,
+                  color: Theme.of(context).primaryColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24),
                   ),

@@ -18,7 +18,10 @@ class MyApp extends StatelessWidget {
       title: 'NIF App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Color(0xfffed767),
+        primaryColorLight: Color(0xffffd868),
+        primaryColorDark: Color(0xffffb612),
+        accentColor: Color(0xff323232),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: SplashScreen(),
