@@ -1,5 +1,6 @@
 import 'dart:ui';
-
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:nif_mobile/screen/home.dart';
 import 'package:nif_mobile/screen/profil.dart';
@@ -11,6 +12,10 @@ class MutabaahScreen extends StatefulWidget {
 }
 
 class _MutabaahScreenState extends State<MutabaahScreen> {
+  static DateTime _now = DateTime.now();
+  DateTime _dateMulai = _now;
+  DateTime _dateAkhir = DateTime(_now.year, _now.month, _now.day + 6);
+
   List<Widget> _markCheckList = [
     Icon(
       Icons.check_circle,
@@ -54,47 +59,95 @@ class _MutabaahScreenState extends State<MutabaahScreen> {
     'Istighfar + Sholawat': [0, 0, 0, 0, 0, 0, 0],
   };
 
+  _showDatePicker(BuildContext context) {
+    showDatePicker(
+      context: context,
+      initialDate: _dateMulai,
+      firstDate: DateTime(2020),
+      lastDate: DateTime(_now.year + 20),
+    ).then((value) {
+      if (value != null) {
+        setState(() {
+          _dateMulai = value;
+          _dateAkhir = DateTime(value.year, value.month, value.day + 6);
+        });
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    initializeDateFormatting();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             height: 25,
           ),
           _buildRowAtas(context),
           SizedBox(
-            height: 20,
+            height: 10,
           ),
-          Text(
-            "Mutaba'ah",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 25,
+          Container(
+            width: MediaQuery.of(context).size.width,
+            child: Text(
+              "Mutaba'ah",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+              ),
+              textAlign: TextAlign.center,
             ),
           ),
-          Text(
-            "Yuk pantau ibadah!",
-            style: TextStyle(
-              fontSize: 18,
+          Container(
+            width: MediaQuery.of(context).size.width,
+            child: Text(
+              "Yuk pantau ibadah!",
+              style: TextStyle(
+                fontSize: 18,
+              ),
+              textAlign: TextAlign.center,
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(
-              top: 20,
+              top: 10,
+              left: 16.0,
+              right: 8.0,
+            ),
+            child: RaisedButton(
+              color: Theme.of(context).primaryColorLight,
+              onPressed: () {
+                _showDatePicker(context);
+              },
+              child: Text('Pilih Tanggal'),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 10,
               left: 16.0,
               right: 8.0,
             ),
             child: Row(
               children: [
-                Expanded(child: Text('Mulai:')),
-                Expanded(child: Text('Akhir:')),
+                Expanded(
+                  child: Text(
+                    'Mulai: ' + DateFormat.yMMMMd('id').format(_dateMulai),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'Akhir: ' + DateFormat.yMMMMd('id').format(_dateAkhir),
+                  ),
+                ),
               ],
             ),
           ),
@@ -157,9 +210,6 @@ class _MutabaahScreenState extends State<MutabaahScreen> {
                 _buildTableRowIbadah(indexIbadah: 10),
               ],
             ),
-          ),
-          SizedBox(
-            height: 20,
           ),
           Expanded(child: _buildPaddingBawah(context)),
         ],

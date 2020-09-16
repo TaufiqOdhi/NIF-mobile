@@ -320,17 +320,20 @@ class _HomeScreenState extends State<HomeScreen> {
               }),
         ),
         Expanded(
-          child: TextFormField(
-            decoration: InputDecoration(
-              prefixIcon: Icon(
-                Icons.search,
+          child: Container(
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColorLight,
+              border: Border.all(
+                color: Theme.of(context).primaryColorLight,
               ),
-              hintText: 'Search',
-              contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+              borderRadius: BorderRadius.circular(20),
             ),
-            keyboardType: TextInputType.text,
+            child: Text(
+              'Ngaji Is Fun App',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 18),
+            ),
           ),
         ),
         Padding(
