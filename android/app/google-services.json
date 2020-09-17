@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1049036312626",
+    "firebase_url": "https://nif-mobile.firebaseio.com",
+    "project_id": "nif-mobile",
+    "storage_bucket": "nif-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1049036312626:android:bf6586f27de0422536ec2b",
+        "android_client_info": {
+          "package_name": "com.nif.nifapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049036312626-t0hd6291u6dv4mvs2hcq8jjlehe0j96q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-k1mLMuROm3BQIm4CAiz05D8MVzFfHqE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1049036312626-t0hd6291u6dv4mvs2hcq8jjlehe0j96q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
