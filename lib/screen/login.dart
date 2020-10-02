@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:nif_mobile/screen/sign_up.dart';
 
@@ -8,6 +10,21 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  FirebaseAuth _auth;
+
+  void _checkAuth() {
+    _auth.authStateChanges().listen((User event) {}).cancel();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Firebase.initializeApp().then((value) {
+    //   _auth = FirebaseAuth.instance;
+    //   _checkAuth();
+    // });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

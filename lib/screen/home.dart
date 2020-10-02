@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:nif_mobile/screen/mutabaah.dart';
 import 'package:nif_mobile/screen/profil.dart';
@@ -348,7 +350,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: Icon(
                   Icons.email,
                 ),
-                onPressed: () {}),
+                onPressed: () {
+                  Firebase.initializeApp().then((value) async {
+                    await FirebaseAuth.instance.signOut();
+                  });
+                }),
           ),
         ),
         Padding(

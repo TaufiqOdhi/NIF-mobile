@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:nif_mobile/screen/home.dart';
 
@@ -8,6 +10,12 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  TextEditingController _nama = TextEditingController();
+  TextEditingController _username = TextEditingController();
+  TextEditingController _email = TextEditingController();
+  TextEditingController _password = TextEditingController();
+  TextEditingController _confirmPassword = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,6 +65,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     width: MediaQuery.of(context).size.width / 1.5,
                     child: TextFormField(
                       //textAlign: TextAlign.center,
+                      controller: _nama,
                       decoration: InputDecoration(
                         hintText: 'fullname',
                         contentPadding:
@@ -80,6 +89,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     width: MediaQuery.of(context).size.width / 1.5,
                     child: TextFormField(
                       //textAlign: TextAlign.center,
+                      controller: _username,
                       decoration: InputDecoration(
                         suffixIcon: Icon(
                           Icons.check_circle,
@@ -107,6 +117,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     width: MediaQuery.of(context).size.width / 1.5,
                     child: TextFormField(
                       //textAlign: TextAlign.center,
+                      controller: _email,
                       decoration: InputDecoration(
                         hintText: 'e-mail',
                         contentPadding:
@@ -130,6 +141,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     width: MediaQuery.of(context).size.width / 1.5,
                     child: TextFormField(
                       //textAlign: TextAlign.center,
+                      controller: _password,
                       decoration: InputDecoration(
                         suffixIcon: Icon(
                           Icons.check_circle,
@@ -157,6 +169,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     width: MediaQuery.of(context).size.width / 1.5,
                     child: TextFormField(
                       //textAlign: TextAlign.center,
+                      controller: _confirmPassword,
                       textAlignVertical: TextAlignVertical.center,
                       decoration: InputDecoration(
                         suffixIcon: Icon(
@@ -188,9 +201,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         borderRadius: BorderRadius.circular(24),
                       ),
                       onPressed: () {
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            HomeScreen.routeName,
-                            (Route<dynamic> route) => false);
+                        Firebase.initializeApp().then((value) async {
+                          try {
+                            UserCredential userCredential = await FirebaseAuth
+                                .instance
+                                .createUserWithEmailAndPassword(
+                                    email: _email.text,
+                                    password: _password.text);
+                            print('berhasil: ' + userCredential.toString());
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'weak-password') {
+                              print('The password provided is too weak.');
+                            } else if (e.code == 'email-already-in-use') {
+                              print(
+                                  'The account already exists for that email.');
+                            }
+                          } catch (e) {
+                            print(e.toString());
+                          }
+                        });
+                        // Navigator.of(context).pushNamedAndRemoveUntil(
+                        //     HomeScreen.routeName,
+                        //     (Route<dynamic> route) => false);
                       }),
                 ),
               ],

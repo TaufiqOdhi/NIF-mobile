@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:nif_mobile/screen/home.dart';
 import 'package:nif_mobile/screen/login.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -20,11 +23,23 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _onDoneLoading() {
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (ctx) => LoginScreen(),
-        ));
+    Firebase.initializeApp().then((value) {
+      FirebaseAuth.instance.authStateChanges().listen((User event) {
+        if (event == null) {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (ctx) => LoginScreen(),
+              ));
+        } else {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (ctx) => HomeScreen(),
+              ));
+        }
+      });
+    });
   }
 
   @override
