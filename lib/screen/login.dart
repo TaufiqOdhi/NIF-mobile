@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:nif_mobile/screen/home.dart';
 import 'package:nif_mobile/screen/sign_up.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -10,11 +10,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  FirebaseAuth _auth;
-
-  void _checkAuth() {
-    _auth.authStateChanges().listen((User event) {}).cancel();
-  }
+  TextEditingController _email = TextEditingController();
+  TextEditingController _password = TextEditingController();
+  UserCredential _userCredential;
+  bool _hidePass = true;
 
   @override
   void initState() {
@@ -40,11 +39,11 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           children: [
             SizedBox(
-              height: 50,
+              height: 40,
             ),
             Container(
-              height: MediaQuery.of(context).size.height / 4,
-              width: MediaQuery.of(context).size.height / 4,
+              height: MediaQuery.of(context).size.height / 5,
+              width: MediaQuery.of(context).size.height / 5,
               child: Image.asset('assets/2.1-Logo-NIF.png'),
             ),
             SizedBox(
@@ -62,11 +61,12 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 30,
             ),
             Container(
-              width: MediaQuery.of(context).size.width / 1.5,
+              width: MediaQuery.of(context).size.width / 1.2,
               child: TextFormField(
+                controller: _email,
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.account_circle),
-                  hintText: 'username/e-mail',
+                  hintText: 'e-mail',
                   contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(32.0)),
@@ -85,14 +85,16 @@ class _LoginScreenState extends State<LoginScreen> {
               width: MediaQuery.of(context).size.width,
             ),
             Container(
-              width: MediaQuery.of(context).size.width / 1.5,
+              width: MediaQuery.of(context).size.width / 1.2,
               child: TextFormField(
+                obscureText: _hidePass,
+                controller: _password,
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.vpn_key),
                   suffixIcon: GestureDetector(
                       onTap: () {
                         setState(() {
-                          //hidePass = !hidePass;
+                          _hidePass = !_hidePass;
                         });
                       },
                       child: Icon(Icons.remove_red_eye)),
@@ -123,7 +125,53 @@ class _LoginScreenState extends State<LoginScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
                     ),
-                    onPressed: () {}),
+                    onPressed: () async {
+                      try {
+                        _userCredential = await FirebaseAuth.instance
+                            .signInWithEmailAndPassword(
+                                email: _email.text, password: _password.text);
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            HomeScreen.routeName,
+                            (Route<dynamic> route) => false);
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'user-not-found') {
+                          showDialog(
+                            context: context,
+                            builder: (ctx) => AlertDialog(
+                              content: Text('email belum terdaftar !'),
+                              actions: [
+                                RaisedButton(
+                                  color: Theme.of(context).primaryColor,
+                                  child: Text('kembali'),
+                                  onPressed: () => Navigator.of(context).pop(),
+                                ),
+                              ],
+                            ),
+                          );
+                          print('No user found for that email.');
+                        } else if (e.code == 'wrong-password') {
+                          showDialog(
+                            context: context,
+                            builder: (ctx) => AlertDialog(
+                              title: Text(
+                                'password salah !',
+                                style: TextStyle(color: Colors.red),
+                              ),
+                              content: Text(
+                                  'coba cek kembali password yang diinputkan.'),
+                              actions: [
+                                RaisedButton(
+                                  color: Theme.of(context).primaryColor,
+                                  child: Text('kembali'),
+                                  onPressed: () => Navigator.of(context).pop(),
+                                ),
+                              ],
+                            ),
+                          );
+                          print('Wrong password provided for that user.');
+                        }
+                      }
+                    }),
                 SizedBox(
                   width: 20,
                 ),

@@ -15,6 +15,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _email = TextEditingController();
   TextEditingController _password = TextEditingController();
   TextEditingController _confirmPassword = TextEditingController();
+  UserCredential _userCredential;
+  bool _hidePass = true;
+  bool _hideConfirmPass = true;
 
   @override
   Widget build(BuildContext context) {
@@ -91,10 +94,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       //textAlign: TextAlign.center,
                       controller: _username,
                       decoration: InputDecoration(
-                        suffixIcon: Icon(
-                          Icons.check_circle,
-                          color: Colors.green,
-                        ),
                         hintText: 'username',
                         contentPadding:
                             EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -119,6 +118,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       //textAlign: TextAlign.center,
                       controller: _email,
                       decoration: InputDecoration(
+                        // suffixIcon: Icon(
+                        //   Icons.check_circle,
+                        //   color: Colors.green,
+                        // ),
                         hintText: 'e-mail',
                         contentPadding:
                             EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -141,11 +144,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     width: MediaQuery.of(context).size.width / 1.5,
                     child: TextFormField(
                       //textAlign: TextAlign.center,
+                      obscureText: _hidePass,
                       controller: _password,
                       decoration: InputDecoration(
-                        suffixIcon: Icon(
-                          Icons.check_circle,
-                          color: Colors.green,
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _hidePass = !_hidePass;
+                            });
+                          },
+                          child: Icon(
+                            Icons.remove_red_eye,
+                            // Icons.check_circle,
+                            // color: Colors.green,
+                          ),
                         ),
                         hintText: 'password',
                         contentPadding:
@@ -169,12 +181,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     width: MediaQuery.of(context).size.width / 1.5,
                     child: TextFormField(
                       //textAlign: TextAlign.center,
+                      obscureText: _hideConfirmPass,
                       controller: _confirmPassword,
                       textAlignVertical: TextAlignVertical.center,
                       decoration: InputDecoration(
-                        suffixIcon: Icon(
-                          Icons.check_circle,
-                          color: Colors.green,
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _hideConfirmPass = !_hideConfirmPass;
+                            });
+                          },
+                          child: Icon(Icons.remove_red_eye
+                              //Icons.check_circle,
+                              //color: Colors.green,
+                              ),
                         ),
                         hintText: 'confirm password',
                         contentPadding:
@@ -201,28 +221,58 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         borderRadius: BorderRadius.circular(24),
                       ),
                       onPressed: () {
-                        // Firebase.initializeApp().then((value) async {
-                        //   try {
-                        //     UserCredential userCredential = await FirebaseAuth
-                        //         .instance
-                        //         .createUserWithEmailAndPassword(
-                        //             email: _email.text,
-                        //             password: _password.text);
-                        //     print('berhasil: ' + userCredential.toString());
-                        //   } on FirebaseAuthException catch (e) {
-                        //     if (e.code == 'weak-password') {
-                        //       print('The password provided is too weak.');
-                        //     } else if (e.code == 'email-already-in-use') {
-                        //       print(
-                        //           'The account already exists for that email.');
-                        //     }
-                        //   } catch (e) {
-                        //     print(e.toString());
-                        //   }
-                        // });
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            HomeScreen.routeName,
-                            (Route<dynamic> route) => false);
+                        Firebase.initializeApp().then((value) async {
+                          try {
+                            _userCredential = await FirebaseAuth.instance
+                                .createUserWithEmailAndPassword(
+                                    email: _email.text,
+                                    password: _password.text);
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                HomeScreen.routeName,
+                                (Route<dynamic> route) => false);
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'weak-password') {
+                              showDialog(
+                                context: context,
+                                builder: (ctx) => AlertDialog(
+                                  content: Text('minimal 6 karakter.'),
+                                  title: Text(
+                                    'password terlalu lemah !',
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                  actions: [
+                                    RaisedButton(
+                                      color: Theme.of(context).primaryColor,
+                                      child: Text('kembali'),
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                    ),
+                                  ],
+                                ),
+                              );
+                              print('The password provided is too weak.');
+                            } else if (e.code == 'email-already-in-use') {
+                              showDialog(
+                                context: context,
+                                builder: (ctx) => AlertDialog(
+                                  title: Text('email sudah terdaftar !'),
+                                  actions: [
+                                    RaisedButton(
+                                      color: Theme.of(context).primaryColor,
+                                      child: Text('kembali'),
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                    ),
+                                  ],
+                                ),
+                              );
+                              print(
+                                  'The account already exists for that email.');
+                            }
+                          } catch (e) {
+                            print(e.toString());
+                          }
+                        });
                       }),
                 ),
               ],
