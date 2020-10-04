@@ -30,39 +30,30 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Column(
                   children: [
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Theme.of(context).primaryColorLight,
-                      child: Icon(
-                        Icons.question_answer,
-                        size: 50,
-                      ),
+                    Image.asset(
+                      'assets/home/question_answer.png',
+                      width: MediaQuery.of(context).size.width / 4,
+                      height: MediaQuery.of(context).size.width / 4,
                     ),
                     Text('Question\n& Answer'),
                   ],
                 ),
                 Column(
                   children: [
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Theme.of(context).primaryColorLight,
-                      child: Icon(
-                        Icons.archive,
-                        size: 50,
-                      ),
+                    Image.asset(
+                      'assets/home/quran.png',
+                      width: MediaQuery.of(context).size.width / 4,
+                      height: MediaQuery.of(context).size.width / 4,
                     ),
                     Text("Al Qur'an"),
                   ],
                 ),
                 Column(
                   children: [
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Theme.of(context).primaryColorLight,
-                      child: Icon(
-                        Icons.account_balance,
-                        size: 50,
-                      ),
+                    Image.asset(
+                      'assets/home/pray_time.png',
+                      width: MediaQuery.of(context).size.width / 4,
+                      height: MediaQuery.of(context).size.width / 4,
                     ),
                     Text('Pray Times'),
                   ],
@@ -85,13 +76,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             MaterialPageRoute(
                                 builder: (ctx) => MutabaahScreen()));
                       },
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundColor: Theme.of(context).primaryColorLight,
-                        child: Icon(
-                          Icons.list,
-                          size: 50,
-                        ),
+                      child: Image.asset(
+                        'assets/home/mutabaah.png',
+                        width: MediaQuery.of(context).size.width / 4,
+                        height: MediaQuery.of(context).size.width / 4,
                       ),
                     ),
                     Text("Mutaba'ah"),
@@ -99,26 +87,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Column(
                   children: [
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Theme.of(context).primaryColorLight,
-                      child: Icon(
-                        Icons.cloud,
-                        size: 50,
-                      ),
+                    Image.asset(
+                      'assets/home/tips_tricks.png',
+                      width: MediaQuery.of(context).size.width / 4,
+                      height: MediaQuery.of(context).size.width / 4,
                     ),
                     Text("Tips & Tricks"),
                   ],
                 ),
                 Column(
                   children: [
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Theme.of(context).primaryColorLight,
-                      child: Icon(
-                        Icons.date_range,
-                        size: 50,
-                      ),
+                    Image.asset(
+                      'assets/home/nif_event.png',
+                      width: MediaQuery.of(context).size.width / 4,
+                      height: MediaQuery.of(context).size.width / 4,
                     ),
                     Text('NIF Event'),
                   ],
@@ -153,17 +135,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 onPressed: () {}),
           ),
-          Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Theme.of(context).accentColor,
-            ),
-            child: IconButton(
-                icon: Icon(
-                  Icons.question_answer,
-                  color: Colors.white,
-                ),
-                onPressed: () {}),
+          Image.asset(
+            'assets/home/question_answer_hitam.png',
+            width: MediaQuery.of(context).size.width / 8,
+            height: MediaQuery.of(context).size.width / 8,
           ),
           Container(
             decoration: BoxDecoration(
@@ -287,7 +262,7 @@ class _HomeScreenState extends State<HomeScreen> {
         width: MediaQuery.of(context).size.width / 1.5,
         decoration: BoxDecoration(
           border:
-              Border.all(color: Theme.of(context).primaryColorLight, width: 3),
+              Border.all(color: Theme.of(context).primaryColorDark, width: 3),
           borderRadius: BorderRadius.circular(5),
         ),
         child: Padding(
@@ -325,9 +300,9 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Container(
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Theme.of(context).primaryColorLight,
+              color: Theme.of(context).primaryColorDark,
               border: Border.all(
-                color: Theme.of(context).primaryColorLight,
+                color: Theme.of(context).primaryColorDark,
               ),
               borderRadius: BorderRadius.circular(20),
             ),
@@ -344,7 +319,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Theme.of(context).primaryColorLight,
+              color: Theme.of(context).primaryColorDark,
             ),
             child: IconButton(
                 icon: Icon(
@@ -363,7 +338,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Theme.of(context).primaryColorLight,
+              color: Theme.of(context).primaryColorDark,
             ),
             child: IconButton(
                 icon: Icon(
