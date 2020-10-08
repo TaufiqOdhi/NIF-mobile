@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   _onDoneLoading() {
     Firebase.initializeApp().then((value) {
-      FirebaseAuth.instance.authStateChanges().listen((User event) {
+      FirebaseAuth.instance.authStateChanges().listen((User event) async {
         if (event == null) {
           Navigator.pushReplacement(
               context,
@@ -32,6 +32,11 @@ class _SplashScreenState extends State<SplashScreen> {
                 builder: (ctx) => LoginScreen(),
               ));
         } else {
+          User user = FirebaseAuth.instance.currentUser;
+          if (!user.emailVerified) {
+            await user.sendEmailVerification();
+          }
+
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(

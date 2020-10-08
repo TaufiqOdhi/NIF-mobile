@@ -12,16 +12,11 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _email = TextEditingController();
   TextEditingController _password = TextEditingController();
-  UserCredential _userCredential;
   bool _hidePass = true;
 
   @override
   void initState() {
     super.initState();
-    // Firebase.initializeApp().then((value) {
-    //   _auth = FirebaseAuth.instance;
-    //   _checkAuth();
-    // });
   }
 
   @override
@@ -110,7 +105,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   }
                   return null;
                 },
-                //obscureText: hidePass,
               ),
             ),
             SizedBox(
@@ -127,9 +121,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     onPressed: () async {
                       try {
-                        _userCredential = await FirebaseAuth.instance
-                            .signInWithEmailAndPassword(
-                                email: _email.text, password: _password.text);
+                        await FirebaseAuth.instance.signInWithEmailAndPassword(
+                            email: _email.text, password: _password.text);
                         Navigator.of(context).pushNamedAndRemoveUntil(
                             HomeScreen.routeName,
                             (Route<dynamic> route) => false);
@@ -148,7 +141,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               ],
                             ),
                           );
-                          print('No user found for that email.');
                         } else if (e.code == 'wrong-password') {
                           showDialog(
                             context: context,
@@ -168,7 +160,45 @@ class _LoginScreenState extends State<LoginScreen> {
                               ],
                             ),
                           );
-                          print('Wrong password provided for that user.');
+                        } else if (e.code == 'user-disabled') {
+                          showDialog(
+                            context: context,
+                            builder: (ctx) => AlertDialog(
+                              content: Text(
+                                'Akun dengan email ini telah diblokir !',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              actions: [
+                                RaisedButton(
+                                  color: Theme.of(context).primaryColor,
+                                  child: Text('kembali'),
+                                  onPressed: () => Navigator.of(context).pop(),
+                                ),
+                              ],
+                            ),
+                          );
+                        } else if (e.code == 'invalid-email') {
+                          showDialog(
+                            context: context,
+                            builder: (ctx) => AlertDialog(
+                              title: Text(
+                                'format email tidak benar !',
+                                style: TextStyle(color: Colors.red),
+                              ),
+                              content: Text(
+                                  'coba cek kembali email yang anda inputkan.'),
+                              actions: [
+                                RaisedButton(
+                                  color: Theme.of(context).primaryColor,
+                                  child: Text('kembali'),
+                                  onPressed: () => Navigator.of(context).pop(),
+                                ),
+                              ],
+                            ),
+                          );
                         }
                       }
                     }),

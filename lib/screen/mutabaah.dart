@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +14,11 @@ class MutabaahScreen extends StatefulWidget {
 
 class _MutabaahScreenState extends State<MutabaahScreen> {
   static DateTime _now = DateTime.now();
+  static FirebaseFirestore _firestore = FirebaseFirestore.instance;
   DateTime _dateMulai = _now;
   DateTime _dateAkhir = DateTime(_now.year, _now.month, _now.day + 6);
+  static CollectionReference _users = _firestore.collection('users');
+  DocumentReference _docRef = _users.doc('acikmaoik@gmail.com');
 
   List<Widget> _markCheckList = [
     Icon(
@@ -416,7 +420,25 @@ class _MutabaahScreenState extends State<MutabaahScreen> {
                 icon: Icon(
                   Icons.notifications,
                 ),
-                onPressed: () {}),
+                onPressed: () {
+                  // _users
+                  //     .add({
+                  //       'full_name': 'fullName2', // John Doe
+                  //       'company': 'company2', // Stokes and Sons
+                  //       'age': 'age2' // 42
+                  //     })
+                  //     .then((value) => print("User Added"))
+                  //     .catchError(
+                  //         (error) => print("Failed to add user: $error"));
+                  _docRef
+                      .set({
+                        'full_name': 'fullName2', // John Doe
+                        'company': 'company2', // Stokes and Sons
+                        'age': 'age2' // 42
+                      })
+                      .then((value) => print('sudah bisa docRef'))
+                      .catchError((error) => print('Failed docREf: $error'));
+                }),
           ),
         ),
       ],

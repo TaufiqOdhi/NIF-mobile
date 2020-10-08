@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:nif_mobile/model/account_data.dart';
 import 'package:nif_mobile/screen/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const routeName = '/signUp';
@@ -15,7 +18,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _email = TextEditingController();
   TextEditingController _password = TextEditingController();
   TextEditingController _confirmPassword = TextEditingController();
-  UserCredential _userCredential;
   bool _hidePass = true;
   bool _hideConfirmPass = true;
 
@@ -223,13 +225,52 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       onPressed: () {
                         Firebase.initializeApp().then((value) async {
                           try {
-                            _userCredential = await FirebaseAuth.instance
-                                .createUserWithEmailAndPassword(
-                                    email: _email.text,
-                                    password: _password.text);
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                HomeScreen.routeName,
-                                (Route<dynamic> route) => false);
+                            if (_password.text == _confirmPassword.text) {
+                              AccountData _accountData = AccountData(
+                                email: _email.text,
+                                fullname: _nama.text,
+                                username: _username.text,
+                              );
+                              SharedPreferences _sharedPreferences =
+                                  await SharedPreferences.getInstance();
+                              await FirebaseAuth.instance
+                                  .createUserWithEmailAndPassword(
+                                      email: _email.text,
+                                      password: _password.text);
+                              await FirebaseAuth.instance.currentUser
+                                  .sendEmailVerification();
+                              await FirebaseFirestore.instance
+                                  .collection('accountData')
+                                  .doc(_email.text)
+                                  .set(_accountData.toJson());
+                              _sharedPreferences.setString(
+                                  'email', _email.text);
+                              _sharedPreferences.setString(
+                                  'password', _password.text);
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  HomeScreen.routeName,
+                                  (Route<dynamic> route) => false);
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (ctx) => AlertDialog(
+                                  content: Text(
+                                      'pastikan password sudah dikonfirmasi dengan benar.'),
+                                  title: Text(
+                                    'password gagal diconfirmasi !',
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                  actions: [
+                                    RaisedButton(
+                                      color: Theme.of(context).primaryColor,
+                                      child: Text('kembali'),
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'weak-password') {
                               showDialog(
@@ -250,7 +291,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   ],
                                 ),
                               );
-                              print('The password provided is too weak.');
                             } else if (e.code == 'email-already-in-use') {
                               showDialog(
                                 context: context,
@@ -266,8 +306,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   ],
                                 ),
                               );
-                              print(
-                                  'The account already exists for that email.');
+                            } else if (e.code == 'invalid-email') {
+                              showDialog(
+                                context: context,
+                                builder: (ctx) => AlertDialog(
+                                  title: Text(
+                                    'format email tidak benar !',
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                  content: Text(
+                                      'coba cek kembali email yang anda inputkan.'),
+                                  actions: [
+                                    RaisedButton(
+                                      color: Theme.of(context).primaryColor,
+                                      child: Text('kembali'),
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                    ),
+                                  ],
+                                ),
+                              );
                             }
                           } catch (e) {
                             print(e.toString());
