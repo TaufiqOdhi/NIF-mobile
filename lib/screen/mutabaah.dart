@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:nif_mobile/screen/home.dart';
 import 'package:nif_mobile/screen/profil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MutabaahScreen extends StatefulWidget {
   static const routeName = "/mutaba'ah";
@@ -15,9 +16,10 @@ class MutabaahScreen extends StatefulWidget {
 class _MutabaahScreenState extends State<MutabaahScreen> {
   static DateTime _now = DateTime.now();
   static FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  static CollectionReference _users = _firestore.collection('users');
   DateTime _dateMulai = _now;
   DateTime _dateAkhir = DateTime(_now.year, _now.month, _now.day + 6);
-  static CollectionReference _users = _firestore.collection('users');
+  SharedPreferences _sharedPreferences;
   DocumentReference _docRef = _users.doc('acikmaoik@gmail.com');
 
   List<Widget> _markCheckList = [
@@ -249,17 +251,38 @@ class _MutabaahScreenState extends State<MutabaahScreen> {
   GestureDetector _buildGestureDetectorCheckList(
       {int index, String jenisIbadah}) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
+        _sharedPreferences = await SharedPreferences.getInstance();
+        await FirebaseFirestore.instance
+            .collection('mutabaahData')
+            .doc(_sharedPreferences.getString('email'))
+            .set({
+          _dateMulai.toString().substring(0, 10): {jenisIbadah: 1}
+        });
         setState(() {
           _checkListMutabaah[jenisIbadah][index] = 1;
         });
       },
-      onDoubleTap: () {
+      onDoubleTap: () async {
+        _sharedPreferences = await SharedPreferences.getInstance();
+        await FirebaseFirestore.instance
+            .collection('mutabaahData')
+            .doc(_sharedPreferences.getString('email'))
+            .set({
+          _dateMulai.toString().substring(0, 10): {jenisIbadah: 2}
+        });
         setState(() {
           _checkListMutabaah[jenisIbadah][index] = 2;
         });
       },
-      onLongPress: () {
+      onLongPress: () async {
+        _sharedPreferences = await SharedPreferences.getInstance();
+        await FirebaseFirestore.instance
+            .collection('mutabaahData')
+            .doc(_sharedPreferences.getString('email'))
+            .set({
+          _dateMulai.toString().substring(0, 10): {jenisIbadah: 0}
+        });
         setState(() {
           _checkListMutabaah[jenisIbadah][index] = 0;
         });
